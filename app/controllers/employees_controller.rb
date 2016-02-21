@@ -22,6 +22,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(:name)
   end
 
+  #TODO move to a util method
   def set_client
     @client ||= RepliconSchedulerClient.create
   end

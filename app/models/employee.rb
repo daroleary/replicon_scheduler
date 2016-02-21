@@ -1,5 +1,5 @@
 class Employee
-  attr_reader :name, :id
+  attr_reader :id, :name
 
   def initialize(options = {})
     @id   = options[:id]
