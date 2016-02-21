@@ -1,0 +1,12 @@
+<%= simple_form_for @employee do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :name, placeholder: 'Name', :input_html => {:style => 'width: 30%'} %>
+
+
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-success" %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  employees_path, :class => 'btn btn-default' %>
+    </div>
+<% end %>
