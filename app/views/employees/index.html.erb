@@ -19,3 +19,18 @@
     <% end %>
   </tbody>
 </table>
+
+<div id='calendar'></div>
+
+<% content_for :head do %>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({defaultDate: moment($('#calendar').data('start-date')),
+                header: {
+                    center: false,
+                    right: false
+                }})
+
+        });
+    </script>
+<% end %>

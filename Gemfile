@@ -27,6 +27,10 @@ gem 'therubyracer', '~> 0.12.2'
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
 gem 'simple_form', '~> 3.2.0'
 
+gem 'fullcalendar-rails', '~> 2.6.0'
+gem 'momentjs-rails', '~> 2.11.0'
+gem 'rails-backbone', '~> 1.2'
+
 gem 'replicon_scheduler_client', path: '/Users/darren.oleary/RubyMineProjects/gem'
 
 group :development, :test do
