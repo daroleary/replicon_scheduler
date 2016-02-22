@@ -5,6 +5,10 @@ FactoryGirl.define do
     name { Faker::Name.name }
   end
 
+  factory :rule_definition do
+
+  end
+
   # factory :dietary_restriction do
   #   sequence(:name) { |n| "dietary-restriction-#{n}" }
   # end

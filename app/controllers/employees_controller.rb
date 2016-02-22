@@ -5,9 +5,7 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = @client.employees.map do |employee|
-      Employee.new(employee)
-    end
+    @employees = @client.employees
   end
 
   # GET /employees/1
@@ -28,6 +26,6 @@ class EmployeesController < ApplicationController
   end
 
   def set_employee
-    @employee = Employee.new(@client.employee(params[:id]))
+    @employee = @client.employee(params[:id])
   end
 end
