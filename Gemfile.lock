@@ -2,6 +2,7 @@ PATH
   remote: /Users/darren.oleary/RubyMineProjects/gem
   specs:
     replicon_scheduler_client (0.0.1.alpha)
+      rails (= 4.2.5)
       rest-client (~> 1.8.0)
 
 GEM

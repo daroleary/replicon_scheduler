@@ -1,13 +1,19 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :employee do
-    name { Faker::Name.name }
+
+  factory :employee, :class => Employee do |e|
+    sequence(e.id) { |n| n }
+    e.name { Faker::Name.name }
   end
 
-  factory :rule_definition do
-
-  end
+  # factory :employee do
+  #   name { Faker::Name.name }
+  # end
+  #
+  # factory :rule_definition do
+  #
+  # end
 
   # factory :dietary_restriction do
   #   sequence(:name) { |n| "dietary-restriction-#{n}" }
