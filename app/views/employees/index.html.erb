@@ -13,23 +13,10 @@
     <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.id %></td>
-        <!--<td><#%= link_to employee.name, employee_path(employee), employee: employee.id %></td>-->
         <td><%= link_to employee.name, employee_path(employee.id) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<div id='calendar'></div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#calendar').fullCalendar({defaultDate: moment($('#calendar').data('start-date')),
-            header: {
-                center: false,
-                right: false
-            }})
-
-    });
-</script>
+<div id='calendar' data-events="<%= @events.all_events.to_json %>" data-start-date="<%= @events.start_date %>"></div>
 

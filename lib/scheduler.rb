@@ -22,10 +22,10 @@ class Scheduler
   end
 
   def fetch_employees
-    @client.employees.uniq
+    client.employees.uniq
   end
 
   def fetch_employees_per_shift
-    @client.employees_per_shift
+    client.employees_per_shift
   end
 end

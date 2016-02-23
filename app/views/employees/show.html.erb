@@ -10,3 +10,4 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               employees_path, :class => 'btn btn-default'  %>
+<div id='calendar' data-events="<%= @events.employee_events(@employee.id).to_json %>" data-start-date="<%= @events.start_date %>"></div>
