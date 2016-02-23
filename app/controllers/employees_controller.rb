@@ -28,4 +28,7 @@ class EmployeesController < ApplicationController
   def set_employee
     @employee = @client.employee(params[:id])
   end
+
+  # TODO: refactor elsewhere later, likely needs work for employees & employee
+
 end

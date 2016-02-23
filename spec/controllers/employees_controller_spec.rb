@@ -3,8 +3,9 @@ require 'replicon_scheduler_client/models/employee'
 
 RSpec.describe EmployeesController, type: :controller do
 
+  # let(:client) { RepliconSchedulerClient.create }
   let(:employee) { Employee.new(id: 1, name: Faker::Name.name) }
-  # let(:employee) { FactoryGirl.create(:employee) }
+  let(:employees) { [employee] }
   let(:valid_session) { {} }
 
   before(:each) do
@@ -29,5 +30,9 @@ RSpec.describe EmployeesController, type: :controller do
       expect(response.status).to eq(200)
       expect(assigns(:employee)).to eq(employee)
     end
+  end
+
+  def employee_schedule(employee_id, day)
+    {employee_id: employee_id, day: day}
   end
 end

@@ -31,6 +31,7 @@ gem 'fullcalendar-rails', '~> 2.6.0'
 gem 'momentjs-rails', '~> 2.11.0'
 gem 'rails-backbone', '~> 1.2'
 
+gem 'activerecord-tableless', '~> 1.3.4'
 gem 'replicon_scheduler_client', path: '/Users/darren.oleary/RubyMineProjects/gem'
 
 group :development, :test do
