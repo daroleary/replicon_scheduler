@@ -16,4 +16,9 @@
 //= require turbolinks
 //= require moment
 //= require fullcalendar
+//= require underscore
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/replicon_scheduler
 //= require_tree .
