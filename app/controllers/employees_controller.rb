@@ -7,14 +7,12 @@ class EmployeesController < ApplicationController
   # GET /employees.json
   def index
     @employees = @client.employees
-    #TODO: inconsistently gets set, need to fix
     @events = fetch_events
   end
 
   # GET /employees/1
   # GET /employees/1.json
   def show
-    #TODO: fails first time, need to fix
     @events = fetch_events
   end
 
@@ -25,7 +23,6 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(:name)
   end
 
-  #TODO move to a util method
   def set_client
     @client ||= RepliconSchedulerClient.create
   end

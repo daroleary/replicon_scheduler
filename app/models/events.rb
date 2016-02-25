@@ -1,4 +1,5 @@
 class Events
+  # TODO: No tests to be found! Are you using these modules and classes included below
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
@@ -10,6 +11,7 @@ class Events
     @employee_events = Hash.new { |hash, key| hash[key] = [] }
   end
 
+  # TODO: Does this handle duplicates
   def add_employee_event(employee, day)
     @employee_events[employee.id] << {title: employee.name,
                                       id: employee.name.gsub(/[^0-9A-Za-z]/, ''),
