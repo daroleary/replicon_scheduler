@@ -2,13 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Schedule, type: :model do
 
-  let(:employee) { Employee.new({id: 1, name: 'one.name'}) }
+  let(:employee) { build(:employee) }
   let(:schedule) { Schedule.new(23, 1) }
 
   context '#initialize' do
     it 'should instantiate employee_schedule based on given values' do
 
-      expect(schedule.valid?).to be_truthy
       expect(schedule).to be_a_kind_of(Schedule)
       expect(schedule.employees_per_shift).to eql(1)
       expect(schedule.week).to eql(23)
@@ -17,7 +16,6 @@ RSpec.describe Schedule, type: :model do
     it 'should add employee to schedule' do
       actual = schedule.add_employee_to_schedule(employee, 1)
 
-      expect(schedule.valid?).to be_truthy
       expect(actual).to be_truthy
       expect(schedule.number_of_shifts_assigned_for(1)).to eq(1)
       expect(schedule.employee_shifts.count).to eq(1)
@@ -30,7 +28,6 @@ RSpec.describe Schedule, type: :model do
       schedule.add_employee_to_schedule(employee, 1)
       actual = schedule.add_employee_to_schedule(employee, 1)
 
-      expect(schedule.valid?).to be_truthy
       expect(actual).to be_falsey
     end
   end

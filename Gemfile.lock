@@ -1,7 +1,8 @@
-PATH
-  remote: /Users/darren.oleary/RubyMineProjects/gem
+GIT
+  remote: https://github.com/daroleary/replicon_scheduler_client.git
+  revision: 5c8169871b16e9f51352daaf61efe658830fb17f
   specs:
-    replicon_scheduler_client (0.0.1.alpha)
+    replicon_scheduler_client (0.0.1)
       rails (= 4.2.5)
       rest-client (~> 1.8.0)
 
@@ -71,7 +72,7 @@ GEM
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
-    domain_name (0.5.25)
+    domain_name (0.5.20160216)
       unf (>= 0.0.5, < 1.0.0)
     ejs (1.1.1)
     erubis (2.7.0)
@@ -260,7 +261,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     uniform_notifier (1.9.0)
     web-console (2.3.0)
       activemodel (>= 4.0)

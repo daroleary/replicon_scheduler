@@ -1,3 +1,5 @@
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 require 'factory_girl_rails'
 require 'support/client_api_helper'
 
@@ -19,6 +21,8 @@ require 'support/client_api_helper'
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
 RSpec.configure do |config|
 
   config.include ClientApiHelper

@@ -10,7 +10,7 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               employees_path, :class => 'btn btn-default'  %>
-<div id='calendar' data-events="<%= @events.employee_events(@employee.id).to_json %>" data-start-date="<%= @events.start_date %>"></div>
+<div id='calendar' data-events="<%= @events.fetch_employee_events(@employee.id).to_json %>" data-start-date="<%= @events.start_date %>"></div>
 
 <%= content_for :body_scripts do %>
     <script type="text/javascript" charset="utf-8">

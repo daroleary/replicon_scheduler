@@ -1,9 +1,4 @@
 class Events
-  # TODO: No tests to be found! Are you using these modules and classes included below
-  include ActiveModel::Validations
-  include ActiveModel::Conversion
-  extend ActiveModel::Naming
-
   attr_reader :start_date, :employee_events
 
   def initialize(start_date)
@@ -18,11 +13,11 @@ class Events
                                       start: day}
   end
 
-  def all_events
-    @employee_events.values.flatten
+  def fetch_employee_events(employee_id)
+    @employee_events[employee_id]
   end
 
-  def employee_events(employee_id)
-    @employee_events[employee_id]
+  def all_events
+    @employee_events.values.flatten
   end
 end

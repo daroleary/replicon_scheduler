@@ -1,10 +1,8 @@
 require 'rails_helper'
-require 'replicon_scheduler_client/models/employee'
 
 RSpec.describe EmployeesController, type: :controller do
 
-  # let(:client) { RepliconSchedulerClient.create }
-  let(:employee) { Employee.new(id: 1, name: Faker::Name.name) }
+  let(:employee) { build(:employee) }
   let(:employees) { [employee] }
   let(:valid_session) { {} }
 
