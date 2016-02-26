@@ -5,7 +5,7 @@ RSpec.describe Scheduler, type: :class do
 
   let(:subject) { Scheduler.new([2]) }
 
-  describe '#process_schedule' do
+  describe '#schedule_employees' do
 
     before(:each) do
       allow(subject).to receive(:fetch_week).with(week.id) { week }
@@ -13,19 +13,16 @@ RSpec.describe Scheduler, type: :class do
 
     it 'should get schedule' do
 
-      allow(subject).to receive(:fetch_employees) { get_employees }
-      allow(subject).to receive(:fetch_employees_per_shift) { 1 }
+      allow_any_instance_of(Schedule).to receive(:fetch_employees) { get_employees }
+      allow_any_instance_of(Schedule).to receive(:fetch_employees_per_shift) { 1 }
 
       subject.schedule_employees
 
-      expect(subject.events).to be_nil
-      expect(subject.weeks).to eq([2])
       expect(subject.schedules.count).to eq(1)
       schedule = subject.schedules.first
       expect(schedule.week).to eq(2)
-      expect(schedule.employees_per_shift).to eq(1)
-      expect(schedule.week).to eq(2)
-      expect(schedule.employee_shifts.count).to eq(7)
+      expect(schedule.shifts.count).to eq(7)
+      expect(schedule.shifts).to eq(get_employee_shifts)
     end
   end
 

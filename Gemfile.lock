@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/daroleary/replicon_scheduler_client.git
-  revision: 5c8169871b16e9f51352daaf61efe658830fb17f
+  revision: 5da575108b894aefce9d1690fdc2c1975268bf99
   specs:
     replicon_scheduler_client (0.0.1)
       rails (= 4.2.5)

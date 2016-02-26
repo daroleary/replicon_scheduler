@@ -2,33 +2,49 @@ require 'rails_helper'
 
 RSpec.describe Schedule, type: :model do
 
+  let(:subject) { Schedule.new(23) }
   let(:employee) { build(:employee) }
-  let(:schedule) { Schedule.new(23, 1) }
+  let(:other_employee) { build(:other_employee) }
+
+  before(:each) do
+    allow(subject).to receive(:days_in_week) { (1..1) }
+    allow(subject).to receive(:fetch_employees_per_shift) { 2 }
+    allow(subject).to receive(:fetch_employees) { [employee, other_employee] }
+  end
 
   context '#initialize' do
+
     it 'should instantiate employee_schedule based on given values' do
 
-      expect(schedule).to be_a_kind_of(Schedule)
-      expect(schedule.employees_per_shift).to eql(1)
-      expect(schedule.week).to eql(23)
+      expect(subject).to be_a_kind_of(Schedule)
+      expect(subject.week).to eql(23)
+    end
+  end
+
+  context '#fetch_schedule' do
+
+    it 'should fetch schedule' do
+
+      actual = subject.fetch_schedule
+
+      expect(actual.shifts.count).to eq(1)
+
+      employees = actual.shifts[1]
+      expect(employees.count).to eq(2)
+      expect(employees[0]).to eq(employee)
+      expect(employees[1]).to eq(other_employee)
     end
 
-    it 'should add employee to schedule' do
-      actual = schedule.add_employee_to_schedule(employee, 1)
+    it 'should not assign more shifts allowed' do
+      another_employee = Employee.new(id: 3, name: 'other.other.employee')
+      allow(subject).to receive(:fetch_employees) { [employee, another_employee, other_employee] }
 
-      expect(actual).to be_truthy
-      expect(schedule.number_of_shifts_assigned_for(1)).to eq(1)
-      expect(schedule.employee_shifts.count).to eq(1)
-      expect(schedule.employee_shifts[1].count).to eq(1)
-      expect(schedule.employee_shifts[1].first).to eq(employee)
-    end
+      actual = subject.fetch_schedule
 
-    it 'should not exceed employees per shift' do
-
-      schedule.add_employee_to_schedule(employee, 1)
-      actual = schedule.add_employee_to_schedule(employee, 1)
-
-      expect(actual).to be_falsey
+      employees = actual.shifts[1]
+      expect(employees.count).to eq(2)
+      expect(employees[0]).to eq(employee)
+      expect(employees[1]).to eq(another_employee)
     end
   end
 end
