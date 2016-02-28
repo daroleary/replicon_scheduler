@@ -12,11 +12,19 @@ class Events
 
     @schedules.each do |weekly_schedule|
       start_date = fetch_start_date(weekly_schedule.week)
-      weekly_schedule.employee_schedule.each do |employee_shifts|
-        add_employee_events(employee_shifts, start_date)
+      weekly_schedule.employee_schedules.employee_schedules.values.each do |employee_schedule|
+        add_employee_events(employee_schedule, start_date)
       end
     end
-    @employee_events
+    self
+  end
+
+  def all_events
+    @employee_events.values.flatten
+  end
+
+  def fetch_employee_events(employee_id)
+    @employee_events[employee_id]
   end
 
   private
@@ -38,14 +46,6 @@ class Events
     first_schedule = @schedules.first
     raise ArgumentError.new 'First schedule week number must be provided' if first_schedule.week.nil?
     fetch_week(first_schedule.week).start_date
-  end
-
-  def fetch_employee_events(employee_id)
-    @employee_events[employee_id]
-  end
-
-  def all_events
-    @employee_events.values.flatten
   end
 
   def fetch_week(week_number)
