@@ -4,7 +4,7 @@ RSpec.describe Events, type: :model do
 
   let(:employee) { build(:employee) }
   let(:other_employee) { build(:other_employee) }
-  let(:subject) { Events.new(fetch_schedule) }
+  let(:subject) { Events.new(process_schedule) }
   let(:empty_subject) { Events.new([]) }
 
   before(:each) do
@@ -63,11 +63,4 @@ RSpec.describe Events, type: :model do
      id: employee.name.gsub(/[^0-9A-Za-z]/, ''),
      start: day}
   end
-
-  def fetch_schedule
-    {week: 23,
-     schedules: [{employee_id: employee.id, schedule: [1, 2]},
-                 {employee_id: other_employee.id, schedule: [1]}]
-    }
-  end
-end
+eend
