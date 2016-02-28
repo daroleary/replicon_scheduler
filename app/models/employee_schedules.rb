@@ -1,8 +1,16 @@
 class EmployeeSchedules
+  include Enumerable
+
   attr_reader :employee_schedules
 
   def initialize
     @employee_schedules  = {}
+  end
+
+  def each(&block)
+    @employee_schedules.each do |employee_schedule|
+      block.call(employee_schedule)
+    end
   end
 
   def schedule_employee(employee, day)
