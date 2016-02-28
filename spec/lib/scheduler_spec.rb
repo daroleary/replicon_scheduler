@@ -3,26 +3,25 @@ require 'replicon_scheduler_client/client'
 
 RSpec.describe Scheduler, type: :class do
 
-  let(:subject) { Scheduler.new([2]) }
+  let(:subject) { Scheduler.new([23]) }
 
   describe '#schedule_employees' do
-
-    before(:each) do
-      allow(subject).to receive(:fetch_week).with(week.id) { week }
-    end
 
     it 'should get schedule' do
 
       allow_any_instance_of(Schedule).to receive(:fetch_employees) { get_employees }
-      allow_any_instance_of(Schedule).to receive(:fetch_employees_per_shift) { 1 }
+      allow_any_instance_of(Schedule).to receive(:fetch_employees_per_shift) { 2 }
+      allow_any_instance_of(Schedule).to receive(:days_in_week) { 1..2 }
 
-      subject.schedule_employees
+      schedules = subject.schedule_employees
 
-      expect(subject.schedules.count).to eq(1)
-      schedule = subject.schedules.first
-      expect(schedule.week).to eq(2)
-      expect(schedule.shifts.count).to eq(7)
-      expect(schedule.shifts).to eq(get_employee_shifts)
+      expect(schedules.count).to eq(1)
+      weekly_schedule = schedules.first
+      expect(weekly_schedule.week).to eq(23)
+
+      actual_schedules = weekly_schedule.schedules
+      expect(actual_schedules.count).to eq(2)
+      expect(actual_schedules).to eq(get_employee_shifts)
     end
   end
 
@@ -44,10 +43,7 @@ RSpec.describe Scheduler, type: :class do
   end
 
   def get_employee_shifts
-    employee_shifts = Hash.new { |hash, key| hash[key] = [] }
-    (1..7).each do |day|
-      employee_shifts[day] << get_employees.first
-    end
-    employee_shifts
+    [{employee_id: get_employees[0].id, schedule: [1, 2]},
+     {employee_id: get_employees[1].id, schedule: [1, 2]}]
   end
 end

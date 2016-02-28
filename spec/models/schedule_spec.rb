@@ -13,7 +13,6 @@ RSpec.describe Schedule, type: :model do
   end
 
   context '#initialize' do
-
     it 'should instantiate employee_schedule based on given values' do
 
       expect(subject).to be_a_kind_of(Schedule)
@@ -22,29 +21,62 @@ RSpec.describe Schedule, type: :model do
   end
 
   context '#fetch_schedule' do
-
     it 'should fetch schedule' do
 
       actual = subject.fetch_schedule
 
-      expect(actual.shifts.count).to eq(1)
+      actual_schedules = actual.schedules
+      expect(actual_schedules.count).to eq(2)
 
-      employees = actual.shifts[1]
-      expect(employees.count).to eq(2)
-      expect(employees[0]).to eq(employee)
-      expect(employees[1]).to eq(other_employee)
+      employee_shift = actual_schedules[0]
+      expect(employee_shift[:employee_id]).to eq(employee.id)
+      expect(employee_shift[:schedule]).to eq([1])
+
+      employee_shift = actual_schedules[1]
+      expect(employee_shift[:employee_id]).to eq(other_employee.id)
+      expect(employee_shift[:schedule]).to eq([1])
     end
 
     it 'should not assign more shifts allowed' do
       another_employee = Employee.new(id: 3, name: 'other.other.employee')
       allow(subject).to receive(:fetch_employees) { [employee, another_employee, other_employee] }
 
+      actual_schedules = subject.fetch_schedule.schedules
+      expect(actual_schedules.count).to eq(2)
+
+      employee_shift = actual_schedules[0]
+      expect(employee_shift[:employee_id]).to eq(employee.id)
+      expect(employee_shift[:schedule]).to eq([1])
+
+      employee_shift = actual_schedules[1]
+      expect(employee_shift[:employee_id]).to eq(another_employee.id)
+      expect(employee_shift[:schedule]).to eq([1])
+    end
+
+    it 'should fetch schedule over two days' do
+      allow(subject).to receive(:days_in_week) { 1..2 }
+
       actual = subject.fetch_schedule
 
-      employees = actual.shifts[1]
-      expect(employees.count).to eq(2)
-      expect(employees[0]).to eq(employee)
-      expect(employees[1]).to eq(another_employee)
+      actual_schedules = actual.schedules
+      expect(actual_schedules.count).to eq(2)
+
+      employee_shift = actual_schedules[0]
+      expect(employee_shift[:employee_id]).to eq(employee.id)
+      expect(employee_shift[:schedule]).to eq([1,2])
+
+      employee_shift = actual_schedules[1]
+      expect(employee_shift[:employee_id]).to eq(other_employee.id)
+      expect(employee_shift[:schedule]).to eq([1,2])
+
+      expect(actual.to_json).to eq(schedule_json)
     end
+  end
+
+  def schedule_json
+    {week: 23,
+     schedules: [{employee_id: 1, schedule: [1, 2]},
+                 {employee_id: 2, schedule: [1, 2]}]
+    }
   end
 end

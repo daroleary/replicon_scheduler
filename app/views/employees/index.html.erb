@@ -18,7 +18,7 @@
     <% end %>
   </tbody>
 </table>
-<div id='calendar' data-events="<%= @events.all_events.to_json %>" data-start-date="<%= @events.start_date %>"></div>
+<div id='calendar' data-events="<%= @events.all_events.to_json %>" data-start-date="<%= @events.schedule_start_date %>"></div>
 
 <%= content_for :body_scripts do %>
     <script type="text/javascript" charset="utf-8">
