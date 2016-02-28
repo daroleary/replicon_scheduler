@@ -1,5 +1,5 @@
 class EmployeeSchedule
-  attr_reader :employee, :days_scheduled
+  attr_reader :employee
 
   def initialize(employee)
     @employee       = employee
@@ -12,8 +12,7 @@ class EmployeeSchedule
   end
 
   def days_scheduled
-    @days_scheduled.sort! unless @days_scheduled.nil? || @days_scheduled.empty?
-    @days_scheduled
+    @days_scheduled.sort!
   end
 
   def add_day(day)
