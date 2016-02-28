@@ -12,7 +12,7 @@ class Events
 
     @schedules.each do |weekly_schedule|
       start_date = fetch_start_date(weekly_schedule.week)
-      weekly_schedule.schedules.each do |employee_shifts|
+      weekly_schedule.employee_schedule.each do |employee_shifts|
         add_employee_events(employee_shifts, start_date)
       end
     end

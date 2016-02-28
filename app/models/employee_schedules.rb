@@ -1,8 +1,16 @@
 class EmployeeSchedules
+  include Enumerable
+
   attr_reader :employee_schedules
 
   def initialize
     @employee_schedules  = {}
+  end
+
+  def each(&block)
+    @employee_schedules.each do |employee_schedule|
+      block.call(employee_schedule)
+    end
   end
 
   def schedule_employee(employee, day)
@@ -11,7 +19,7 @@ class EmployeeSchedules
   end
 
   def assigned_shifts(day)
-    @employee_schedules.select do |employee_schedule|
+    @employee_schedules.select do |_, employee_schedule|
       employee_schedule.days_scheduled.uniq.include?(day)
     end.count
   end
