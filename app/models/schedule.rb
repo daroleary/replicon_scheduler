@@ -18,7 +18,7 @@ class Schedule
   end
 
   def to_json
-    {week: @week, schedules: @employee_schedules}
+    {week: @week, schedules: @employee_schedules.to_json}
   end
 
   private
