@@ -9,7 +9,7 @@ class Scheduler
 
   def schedule_employees
     (@weeks).each do |week|
-      @schedules << Schedule.new(week).fetch_schedule
+      @schedules << Schedule.new(week).process_schedule
     end
     @schedules
   end

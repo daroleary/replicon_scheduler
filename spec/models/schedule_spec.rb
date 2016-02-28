@@ -23,7 +23,7 @@ RSpec.describe Schedule, type: :model do
   context '#fetch_schedule' do
     it 'should fetch schedule' do
 
-      actual = subject.fetch_schedule
+      actual = subject.process_schedule
 
       actual_schedules = actual.schedules
       expect(actual_schedules.count).to eq(2)
@@ -41,7 +41,7 @@ RSpec.describe Schedule, type: :model do
       another_employee = Employee.new(id: 3, name: 'other.other.employee')
       allow(subject).to receive(:fetch_employees) { [employee, another_employee, other_employee] }
 
-      actual_schedules = subject.fetch_schedule.schedules
+      actual_schedules = subject.process_schedule.schedules
       expect(actual_schedules.count).to eq(2)
 
       employee_shift = actual_schedules[0]
@@ -56,7 +56,7 @@ RSpec.describe Schedule, type: :model do
     it 'should fetch schedule over two days' do
       allow(subject).to receive(:days_in_week) { 1..2 }
 
-      actual = subject.fetch_schedule
+      actual = subject.process_schedule
 
       actual_schedules = actual.schedules
       expect(actual_schedules.count).to eq(2)
