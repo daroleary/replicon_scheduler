@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Schedule, type: :model do
 
-  let(:subject) { Schedule.new(23) }
-  let(:employee) { build(:employee) }
-  let(:other_employee) { build(:other_employee) }
+  let(:subject)        { Schedule.new(23) }
+  let(:employee)       { build(:employee) }
+  let(:other_employee) { build(:employee) }
 
   before(:each) do
     allow(subject).to receive(:days_in_week) { (1..1) }

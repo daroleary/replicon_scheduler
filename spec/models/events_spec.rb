@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Events, type: :model do
 
-  let(:employee) { build(:employee) }
-  let(:other_employee) { build(:other_employee) }
-  let(:subject) { Events.new(fetch_schedules) }
-  let(:empty_subject) { Events.new([]) }
+  let(:employee)       { build(:employee) }
+  let(:other_employee) { build(:employee) }
+  let(:subject)        { Events.new(fetch_schedules) }
+  let(:empty_subject)  { Events.new([]) }
 
   before(:each) do
     @employee_events = Hash.new { |hash, key| hash[key] = [] }

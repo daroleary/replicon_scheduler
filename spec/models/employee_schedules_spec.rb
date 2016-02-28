@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe EmployeeSchedules, type: :model do
 
-  let(:employee) { build(:employee) }
-  let(:other_employee) { build(:other_employee) }
-  let(:subject) { EmployeeSchedules.new }
+  let(:employee)       { build(:employee) }
+  let(:other_employee) { build(:employee) }
+  let(:subject)        { EmployeeSchedules.new }
 
   context '#initialize' do
     it 'employee schedules should be empty' do
