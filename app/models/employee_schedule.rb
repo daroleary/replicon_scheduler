@@ -6,6 +6,11 @@ class EmployeeSchedule
     @days_scheduled = []
   end
 
+  def days_scheduled
+    @days_scheduled.sort! unless @days_scheduled.nil? || @days_scheduled.empty?
+    @days_scheduled
+  end
+
   def add_day(day)
     @days_scheduled << day unless @days_scheduled.include?(day)
   end

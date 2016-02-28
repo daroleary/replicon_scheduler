@@ -16,24 +16,18 @@ class Events
         add_employee_events(employee_shifts, start_date)
       end
     end
-    self
+    @employee_events
   end
 
   private
 
-  def add_employee_events(employee_shifts, start_date)
-    employee_id = employee_shifts[:employee_id]
-    days = employee_shifts[:schedule]
-    days.each do |day|
-      add_employee_event(employee_id, start_date+(day-1))
+  def add_employee_events(employee_schedule, start_date)
+    employee = employee_schedule.employee
+    employee_schedule.days_scheduled.each do |day|
+      @employee_events[employee.id] << {title: employee.name,
+                                        id: employee.name.gsub(/[^0-9A-Za-z]/, ''),
+                                        start: start_date+(day-1)}
     end
-  end
-
-  def add_employee_event(employee_id, day)
-    employee = fetch_employee(employee_id)
-    @employee_events[employee.id] << {title: employee.name,
-                                      id: employee.name.gsub(/[^0-9A-Za-z]/, ''),
-                                      start: day}
   end
 
   def fetch_start_date(week_number)

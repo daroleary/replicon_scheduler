@@ -19,8 +19,15 @@ class EmployeeSchedules
   end
 
   def assigned_shifts(day)
-    @employee_schedules.select do |_, employee_schedule|
+    @employee_schedules.values.select do |employee_schedule|
       employee_schedule.days_scheduled.uniq.include?(day)
     end.count
+  end
+
+  def to_json
+    @employee_schedules.values.map do |employee_schedule|
+      {employee_id: employee_schedule.employee.id,
+       schedule: employee_schedule.days_scheduled}
+    end
   end
 end

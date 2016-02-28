@@ -25,32 +25,33 @@ RSpec.describe Schedule, type: :model do
 
       actual = subject.process_schedule
 
-      actual_schedules = actual.schedules
+      actual_schedules = actual.employee_schedules.employee_schedules
       expect(actual_schedules.count).to eq(2)
 
-      employee_shift = actual_schedules[0]
-      expect(employee_shift[:employee_id]).to eq(employee.id)
-      expect(employee_shift[:schedule]).to eq([1])
+      employee_shift = actual_schedules[employee.id]
+      expect(employee_shift.employee).to eq(employee)
+      expect(employee_shift.days_scheduled).to eq([1])
 
-      employee_shift = actual_schedules[1]
-      expect(employee_shift[:employee_id]).to eq(other_employee.id)
-      expect(employee_shift[:schedule]).to eq([1])
+      employee_shift = actual_schedules[other_employee.id]
+      expect(employee_shift.employee).to eq(other_employee)
+      expect(employee_shift.days_scheduled).to eq([1])
     end
 
     it 'should not assign more shifts allowed' do
       another_employee = Employee.new(id: 3, name: 'other.other.employee')
       allow(subject).to receive(:fetch_employees) { [employee, another_employee, other_employee] }
 
-      actual_schedules = subject.process_schedule.schedules
+      actual = subject.process_schedule
+      actual_schedules = actual.employee_schedules.employee_schedules
       expect(actual_schedules.count).to eq(2)
 
-      employee_shift = actual_schedules[0]
-      expect(employee_shift[:employee_id]).to eq(employee.id)
-      expect(employee_shift[:schedule]).to eq([1])
+      employee_shift = actual_schedules[employee.id]
+      expect(employee_shift.employee).to eq(employee)
+      expect(employee_shift.days_scheduled).to eq([1])
 
-      employee_shift = actual_schedules[1]
-      expect(employee_shift[:employee_id]).to eq(another_employee.id)
-      expect(employee_shift[:schedule]).to eq([1])
+      employee_shift = actual_schedules[another_employee.id]
+      expect(employee_shift.employee).to eq(another_employee)
+      expect(employee_shift.days_scheduled).to eq([1])
     end
 
     it 'should fetch schedule over two days' do
@@ -58,16 +59,16 @@ RSpec.describe Schedule, type: :model do
 
       actual = subject.process_schedule
 
-      actual_schedules = actual.schedules
+      actual_schedules = actual.employee_schedules.employee_schedules
       expect(actual_schedules.count).to eq(2)
 
-      employee_shift = actual_schedules[0]
-      expect(employee_shift[:employee_id]).to eq(employee.id)
-      expect(employee_shift[:schedule]).to eq([1,2])
+      employee_shift = actual_schedules[employee.id]
+      expect(employee_shift.employee).to eq(employee)
+      expect(employee_shift.days_scheduled).to eq([1,2])
 
-      employee_shift = actual_schedules[1]
-      expect(employee_shift[:employee_id]).to eq(other_employee.id)
-      expect(employee_shift[:schedule]).to eq([1,2])
+      employee_shift = actual_schedules[other_employee.id]
+      expect(employee_shift.employee).to eq(other_employee)
+      expect(employee_shift.days_scheduled).to eq([1,2])
 
       expect(actual.to_json).to eq(schedule_json)
     end
