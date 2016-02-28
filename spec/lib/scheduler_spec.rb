@@ -19,9 +19,9 @@ RSpec.describe Scheduler, type: :class do
       weekly_schedule = schedules.first
       expect(weekly_schedule.week).to eq(23)
 
-      actual_schedules = weekly_schedule.schedules
+      actual_schedules = weekly_schedule.employee_schedules.employee_schedules
       expect(actual_schedules.count).to eq(2)
-      expect(actual_schedules).to eq(get_employee_shifts)
+      expect(actual_schedules.values).to eq(get_employee_schedules)
     end
   end
 
@@ -42,8 +42,16 @@ RSpec.describe Scheduler, type: :class do
     Week.new(id: 23, start_date: '2015/06/01'.to_date)
   end
 
-  def get_employee_shifts
-    [{employee_id: get_employees[0].id, schedule: [1, 2]},
-     {employee_id: get_employees[1].id, schedule: [1, 2]}]
+  def get_employee_schedules
+    employee_schedules = []
+    employee_schedules << fetch_employee_schedule(get_employees[0])
+    employee_schedules << fetch_employee_schedule(get_employees[1])
+  end
+
+  def fetch_employee_schedule(employee)
+    employee_schedule = EmployeeSchedule.new(employee)
+    employee_schedule.add_day(1)
+    employee_schedule.add_day(2)
+    employee_schedule
   end
 end
