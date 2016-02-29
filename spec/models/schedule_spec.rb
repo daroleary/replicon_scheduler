@@ -4,10 +4,10 @@ RSpec.describe Schedule, type: :model do
 
   let(:subject)        { Schedule.new(23) }
   let(:employee)       { build(:employee) }
-  let(:other_employee) { build(:employee) }
+  let(:other_employee) { build(:other_employee) }
 
   before(:each) do
-    allow(subject).to receive(:days_in_week) { (1..1) }
+    allow(subject).to receive(:days_in_week) { 1..1 }
     allow(subject).to receive(:fetch_employees_per_shift) { 2 }
     allow(subject).to receive(:fetch_employees) { [employee, other_employee] }
   end
@@ -22,7 +22,6 @@ RSpec.describe Schedule, type: :model do
 
   context '#fetch_schedule' do
     it 'should fetch schedule' do
-
       actual = subject.process_schedule
 
       actual_schedules = actual.employee_schedules.employee_schedules

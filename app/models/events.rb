@@ -1,9 +1,17 @@
 class Events
+  include Enumerable
+
   attr_reader :schedule_start_date, :employee_events
 
   def initialize(schedules)
     @schedules = schedules
     @employee_events = Hash.new { |hash, key| hash[key] = [] }
+  end
+
+  def each(&block)
+    @employee_events.each do |employee_event|
+      block.call(employee_event)
+    end
   end
 
   def fetch_events
